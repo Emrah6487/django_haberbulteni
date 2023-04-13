@@ -1,0 +1,13 @@
+python -m venv env
+env\Scripts\activate
+pip install django
+pip install djangorestframework
+pip install django_extensions/ eksradan bize kabiliyet kazandıracak(araştır)
+django-admin startproject haberbulteni / projeyi oluşturyuz
+setting.py dosyasına kaydet django_exensions ile rest_framework
+python manage.py startapp haberler ile yeni bir app oluşturuyorsun ve bu oluştuktan sonra, yani her app oluşturduktan sonra, oluşan app in içindeki app.py içine giriyorsun, oradaki class ismini setting.py dosyasının içine INSTALLED_APPS içine kaydediyorsun buradaki örnek "habeler.apps.HaberlerConfig"
+
+model.py tablo oluşturduktan sonra, admin.py kaydet
+sonra python manage.py makemigrations de (Django projesinde eklediğimiz her bir model ya da güncellediğimiz her bir model için yeni bir migration oluşturmamız gerekiyor.)
+python manage.py migrate
+python manage.py createsuperuser 
