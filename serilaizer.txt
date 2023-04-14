@@ -1,0 +1,101 @@
+In [1]: from haberler.models import Makale
+In [2]: from haberler.api.serializers import MakaleSerializer
+In [4]: makale_instance = Makale.objects.first()
+
+In [5]: makale_instance.baslik
+Out[5]: 'yazılım'
+
+In [6]: serializer =MakaleSerializer(makale_instance)
+
+In [7]:  serializer.data
+Out[7]: {'id': 1, 'yazar': 'Emrah', 'baslik': 'yazılım', 'aciklama': 'yeni gelişmeler', 'metin': 'Yazılım dünyası hakkındaki yeni gelişmeleri takip 
+et', 'sehir': 'konya', 'yayımlanma_tarihi': '2023-04-13', 'aktif': True, 'yaratilma_tarihi': '2023-04-13T17:35:38.865260Z', 'güncelleneme_tarihi': '2023-04-13T17:35:38.865260Z'}
+
+In [8]: from pprint import pprint
+
+In [9]: pprint (serializer.data)
+{'id': 1, 'yazar': 'Emrah', 'baslik': 'yazılım', 'aciklama': 'yeni gelişmeler', 'metin': 'Yazılım dünyası hakkındaki yeni gelişmeleri takip et', 'sehir': 'konya', 'yayımlanma_tarihi': '2023-04-13', 'aktif': True, 'yaratilma_tarihi': '2023-04-13T17:35:38.865260Z', 'güncelleneme_tarihi': '2023-04-13T17:35:38.865260Z'}
+
+In [10]: pprint(serializer.data)
+{'id': 1, 'yazar': 'Emrah', 'baslik': 'yazılım', 'aciklama': 'yeni gelişmeler', 'metin': 'Yazılım dünyası hakkındaki yeni gelişmeleri takip et', 'sehir': 'konya', 'yayımlanma_tarihi': '2023-04-13', 'aktif': True, 'yaratilma_tarihi': '2023-04-13T17:35:38.865260Z', 'güncelleneme_tarihi': '2023-04-13T17:35:38.865260Z'}
+
+In [11]: from rest_framework.renderers import JSONRenderer
+
+In [12]: data=JSONRenderer().render(serializer.data)
+
+In [13]: data
+Out[13]: b'{"id":1,"yazar":"Emrah","baslik":"yaz\xc4\xb1l\xc4\xb1m","aciklama":"yeni geli\xc5\x9fmeler","metin":"Yaz\xc4\xb1l\xc4\xb1m d\xc3\xbcnyas\xc4\xb1 hakk\xc4\xb1ndaki yeni geli\xc5\x9fmeleri takip et","sehir":"konya","yay\xc4\xb1mlanma_tarihi":"2023-04-13","aktif":true,"yaratilma_tarihi":"2023-04-13T17:35:38.865260Z","g\xc3\xbcncelleneme_tarihi":"2023-04-13T17:35:38.865260Z"}'
+
+In [14]: pprint(data)
+(b'{"id":1,"yazar":"Emrah","baslik":"yaz\xc4\xb1l\xc4\xb1m","aciklama":"yeni ge'
+ b'li\xc5\x9fmeler","metin":"Yaz\xc4\xb1l\xc4\xb1m d\xc3\xbcnyas\xc4\xb1 hakk'
+ b'\xc4\xb1ndaki yeni geli\xc5\x9fmeleri takip et","sehir":"konya","yay'
+ b'\xc4\xb1mlanma_tarihi":"2023-04-13","aktif":true,"yaratilma_tarihi":"2023-'
+ b'04-13T17:35:38.865260Z","g\xc3\xbcncelleneme_tarihi":"2023-04-13T17:35:38.'
+ b'865260Z"}')
+
+In [15]: import io
+
+In [16]: from rest_framework.parsers import JSONParser
+
+In [17]: data
+Out[17]: b'{"id":1,"yazar":"Emrah","baslik":"yaz\xc4\xb1l\xc4\xb1m","aciklama":"yeni geli\xc5\x9fmeler","metin":"Yaz\xc4\xb1l\xc4\xb1m d\xc3\xbcnyas\xc4\xb1 hakk\xc4\xb1ndaki yeni geli\xc5\x9fmeleri takip et","sehir":"konya","yay\xc4\xb1mlanma_tarihi":"2023-04-13","aktif":true,"yaratilma_tarihi":"2023-04-13T17:35:38.865260Z","g\xc3\xbcncelleneme_tarihi":"2023-04-13T17:35:38.865260Z"}'
+
+In [18]: stream=io.BytesIO(data)
+
+In [19]: stream
+Out[19]: <_io.BytesIO at 0x1f516102f20>
+
+In [20]: data = JSONParser().parse(stream)
+
+In [21]: data
+Out[21]: 
+{'id': 1,
+ 'yazar': 'Emrah',
+ 'baslik': 'yazılım',
+ 'aciklama': 'yeni gelişmeler',
+ 'metin': 'Yazılım dünyası hakkındaki yeni gelişmeleri takip et',
+ 'sehir': 'konya',
+ 'yayımlanma_tarihi': '2023-04-13',
+ 'aktif': True,
+ 'yaratilma_tarihi': '2023-04-13T17:35:38.865260Z',
+ 'güncelleneme_tarihi': '2023-04-13T17:35:38.865260Z'}
+
+In [22]: serializer=MakaleSerializer(data=data)
+
+In [23]: serializer
+Out[23]: 
+MakaleSerializer(data={'id': 1, 'yazar': 'Emrah', 'baslik': 'yazılım', 'aciklama': 'yeni gelişmeler', 'metin': 'Yazılım dünyası hakkındaki yeni gelişmeleri takip et', 'sehir': 'konya', 'yayımlanma_tarihi': '2023-04-13', 'aktif': True, 'yaratilma_tarihi': '2023-04-13T17:35:38.865260Z', 'güncelleneme_tarihi': '2023-04-13T17:35:38.865260Z'}):
+    id = IntegerField(read_only=True)
+    yazar = CharField()
+    baslik = CharField()
+    aciklama = CharField()
+    metin = CharField()
+    sehir = CharField()
+    yayımlanma_tarihi = DateField()
+    aktif = BooleanField()
+    yaratilma_tarihi = DateTimeField(read_only=True)
+    güncelleneme_tarihi = DateTimeField(read_only=True)
+
+In [24]: serializer.is_valid()
+Out[24]: True
+
+In [25]: serializer.validated_data
+Out[25]: 
+OrderedDict([('yazar', 'Emrah'),
+             ('baslik', 'yazılım'),
+             ('aciklama', 'yeni gelişmeler'),
+             ('metin', 'Yazılım dünyası hakkındaki yeni gelişmeleri takip et'),
+             ('sehir', 'konya'),
+             ('yayımlanma_tarihi', datetime.date(2023, 4, 13)),
+             ('aktif', True)])
+
+In [26]: serializer.save()
+{'yazar': 'Emrah', 'baslik': 'yazılım', 'aciklama': 'yeni gelişmeler', 'metin': 'Yazılım dünyası hakkındaki yeni gelişmeleri takip et', 'sehir': 'konya', 'yayımlanma_tarihi': datetime.date(2023, 4, 13), 'aktif': True}
+Out[26]: <Makale: yazılım>
+
+
+In [28]: Makale.objects.count()
+Out[28]: 2
+
+In [29]: 

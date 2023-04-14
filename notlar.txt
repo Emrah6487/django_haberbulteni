@@ -11,3 +11,14 @@ model.py tablo oluşturduktan sonra, admin.py kaydet
 sonra python manage.py makemigrations de (Django projesinde eklediğimiz her bir model ya da güncellediğimiz her bir model için yeni bir migration oluşturmamız gerekiyor.)
 python manage.py migrate
 python manage.py createsuperuser 
+
+githup a gönder, .gitigronu unutma
+
+habeler içinde api klasörü oluştur, bunun içinde viewler, serilazirler olacak
+
+api dosyasının içine serializer.py oluştur
+
+pip install ipython yükle
+python manage.py shell_plus
+sonra serializer işlemleri
+
